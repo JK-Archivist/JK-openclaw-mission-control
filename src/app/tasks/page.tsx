@@ -7,7 +7,8 @@ export default async function TasksPage() {
     'use server';
     const title = String(formData.get('title') || '').trim();
     const assignee = String(formData.get('assignee') || 'agent:main');
-    if (title) await upsertItem('tasks', { title, status: 'todo', assignee });
+    const priority = String(formData.get('priority') || 'medium');
+    if (title) await upsertItem('tasks', { title, status: 'todo', assignee, priority });
     revalidatePath('/tasks');
   }
   async function moveTask(formData: FormData) {

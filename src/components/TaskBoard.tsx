@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import Badge from './Badge';
 
-export type Task = { id: string; title?: string; status?: string; assignee?: string; updatedAt?: string };
+export type Task = { id: string; title?: string; status?: string; assignee?: string; priority?: 'low'|'medium'|'high'|string; updatedAt?: string };
 
 type Props = {
   cols: string[];
@@ -36,10 +36,17 @@ export default function TaskBoard({ cols, tasks, moveAction, addAction }: Props)
 
   return (
     <div className="space-y-4">
-      <form action={addAction} className="flex gap-2">
-        <input name="title" placeholder="New task title" className="w-full rounded border px-3 py-2" />
-        <input name="assignee" placeholder="assignee (human|agent:main)" className="rounded border px-3 py-2" />
-        <button className="rounded bg-slate-900 px-4 py-2 text-white" type="submit">Add</button>
+      <form action={addAction} className="grid grid-cols-1 md:grid-cols-3 gap-2">
+        <input name="title" placeholder="New task title" className="rounded border px-3 py-2 md:col-span-2" />
+        <div className="flex gap-2">
+          <input name="assignee" placeholder="assignee (human|agent:main)" className="rounded border px-3 py-2" />
+          <select name="priority" defaultValue="medium" className="rounded border px-2 py-2">
+            <option value="low">low</option>
+            <option value="medium">medium</option>
+            <option value="high">high</option>
+          </select>
+          <button className="rounded bg-slate-900 px-4 py-2 text-white" type="submit">Add</button>
+        </div>
       </form>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {cols.map(col => (
@@ -53,6 +60,7 @@ export default function TaskBoard({ cols, tasks, moveAction, addAction }: Props)
               {groups[col].map(t => (
                 <div key={t.id} draggable data-task-id={t.id} onDragStart={(e)=>onDragStart(e, t.id)} className="rounded border p-2 cursor-move bg-white hover:bg-slate-50">
                   <div className="font-medium flex items-center gap-2">{t.title || t.id}
+                    {t.priority && <Badge variant={t.priority==='high'?'danger':t.priority==='medium'?'info':'muted'}>{t.priority}</Badge>}
                     {t.assignee && <Badge variant={t.assignee.startsWith('agent')?'info':'muted'}>{t.assignee}</Badge>}
                   </div>
                   {t.updatedAt && <div className="text-[11px] text-slate-500">updated {new Date(t.updatedAt).toLocaleString()}</div>}
