@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
+/* Design tokens (light default) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0b0c0e;            /* app background (used in dark by default; ThemeToggle sets data-theme) */
+  --bg-elev: #111317;       /* elevated surfaces */
+  --fg: #e8eaed;            /* primary text */
+  --muted: #9aa0a6;         /* secondary text */
+  --border: #2a2f36;        /* borders */
+  --card: #12141a;          /* cards */
+  --accent: #7c5cff;        /* accent (violet-ish) */
+  --accent-contrast: #ffffff;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+/* Light theme */
+[data-theme="light"] {
+  --bg: #f7f7fb;
+  --bg-elev: #ffffff;
+  --fg: #0f172a;
+  --muted: #64748b;
+  --border: #e5e7eb;
+  --card: #ffffff;
+  --accent: #6d28d9;
+  --accent-contrast: #ffffff;
+}
+
+/* Prefer system theme on first paint if no saved choice */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) { color-scheme: light; }
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) { color-scheme: dark; }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base */
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--fg);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Utilities mapped to tokens */
+.app-container { @apply mx-auto max-w-6xl px-4; }
+.card { background: var(--card); border-color: var(--border); @apply rounded-xl border; }
+.card-hover { @apply transition-shadow shadow-sm hover:shadow-md; }
+.hr { border-color: var(--border); }
+.muted { color: var(--muted); }
+.btn { @apply inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition;
+  color: var(--fg); background: var(--bg-elev); border: 1px solid var(--border);
 }
+.btn:hover { box-shadow: 0 1px 6px rgb(0 0 0 / 0.1); }
+.btn-primary { color: var(--accent-contrast); background: var(--accent); border-color: transparent; }
+.badge { @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium; background: var(--bg-elev); color: var(--muted); border: 1px solid var(--border); }
+.badge-info { background: color-mix(in oklab, var(--accent) 18%, var(--bg)); color: var(--accent-contrast); border-color: transparent; }
+.badge-success { background: color-mix(in oklab, var(--success) 22%, var(--bg)); color: #052e13; }
+.badge-danger { background: color-mix(in oklab, var(--danger) 22%, var(--bg)); color: #3a0a0a; }

@@ -52,8 +52,8 @@ export default function TaskBoard({ cols, tasks, moveAction, addAction, orderAct
       </form>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {cols.map(col => (
-          <div key={col} className="rounded-md border bg-white" data-col={col} onDragOver={onDragOver} onDrop={(e)=>onDrop(e,col)}>
-            <div className="flex items-center justify-between border-b px-3 py-2 text-sm font-medium capitalize">
+          <div key={col} className="card card-hover" data-col={col} onDragOver={onDragOver} onDrop={(e)=>onDrop(e,col)}>
+            <div className="flex items-center justify-between border-b px-3 py-2 text-sm font-medium capitalize hr">
               <span>{col}</span>
               <Badge variant={col==='done'?'success':col==='blocked'?'danger':col==='doing'?'info':'muted'}>{groups[col].length}</Badge>
             </div>

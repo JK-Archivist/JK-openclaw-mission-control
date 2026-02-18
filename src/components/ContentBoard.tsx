@@ -42,8 +42,8 @@ export default function ContentBoard({ stages, items, moveAction, addAction }: P
       </form>
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         {stages.map(stage => (
-          <div key={stage} className="rounded-md border bg-white" data-stage={stage} onDragOver={onDragOver} onDrop={(e)=>onDrop(e,stage)}>
-            <div className="flex items-center justify-between border-b px-3 py-2 text-sm font-medium capitalize">
+          <div key={stage} className="card card-hover" data-stage={stage} onDragOver={onDragOver} onDrop={(e)=>onDrop(e,stage)}>
+            <div className="flex items-center justify-between border-b px-3 py-2 text-sm font-medium capitalize hr">
               <span>{stage}</span>
               <Badge variant={stage==='publish'?'success':stage==='thumb'?'info':'muted'}>{groups[stage].length}</Badge>
             </div>

@@ -40,10 +40,10 @@ export default async function CalendarPage(props: { searchParams?: Promise<{ m?:
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-semibold">Calendar</h1>
-      <div className="flex items-center gap-3 text-slate-600">
-        <a className="rounded border px-2 py-1 text-sm" href={`/calendar?m=${new Date(year, month-1, 1).toISOString().slice(0,7)}`}>Prev</a>
-        <div>{monthName} {year}</div>
-        <a className="rounded border px-2 py-1 text-sm" href={`/calendar?m=${new Date(year, month+1, 1).toISOString().slice(0,7)}`}>Next</a>
+      <div className="flex items-center gap-3 muted">
+        <a className="btn" href={`/calendar?m=${new Date(year, month-1, 1).toISOString().slice(0,7)}`}>← Prev</a>
+        <div className="text-base" style={{color:'var(--fg)'}}>{monthName} {year}</div>
+        <a className="btn" href={`/calendar?m=${new Date(year, month+1, 1).toISOString().slice(0,7)}`}>Next →</a>
       </div>
       <div className="grid grid-cols-7 gap-2 text-sm">
         {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d => (
@@ -54,8 +54,8 @@ export default async function CalendarPage(props: { searchParams?: Promise<{ m?:
           const inMonth = d.getMonth() === month;
           const dayEvents = byDay[key] || [];
           return (
-            <div key={i} className={`min-h-24 rounded border bg-white p-2 ${inMonth?'':'opacity-50'}`}>
-              <div className="text-[11px] text-slate-500">{d.getDate()}</div>
+            <div key={i} className={`min-h-24 card p-2 ${inMonth?'':'opacity-50'}`}>
+              <div className="text-[11px] muted">{d.getDate()}</div>
               <div className="mt-1 space-y-1">
                 {dayEvents.map((e:any)=> (
                   <div key={e.id} className="rounded bg-slate-100 px-2 py-1">
