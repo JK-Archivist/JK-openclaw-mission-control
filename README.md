@@ -1,5 +1,8 @@
 # Mission Control for OpenClaw
 
+[![CI](https://github.com/JK-Archivist/JK-openclaw-mission-control/actions/workflows/ci.yml/badge.svg)](https://github.com/JK-Archivist/JK-openclaw-mission-control/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A plug‑and‑play Next.js dashboard that lets you see and steer your OpenClaw:
 - Tasks board (agent + human tasks)
 - Content pipeline (idea → script → thumb → film → publish)
