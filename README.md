@@ -157,7 +157,8 @@ node skills/mission-control-bridge/bridge.mjs activity update '{"agentId":"main"
 - CORS is disabled by default (localhost); set `MISSION_CONTROL_CORS_ORIGINS` if needed
 
 ## Migrate to Convex (or any DB)
-- Replace `src/lib/store.ts` with Convex mutations/queries
+- Toggle: set `USE_CONVEX=1` (stubbed now; falls back to file store)
+- Replace internals of `src/lib/store.ts` with Convex mutations/queries
 - Keep endpoint contracts stable → UI and bridge scripts remain unchanged
 - Deploy Next.js on Vercel, Convex in the cloud; move token to Vercel env
 

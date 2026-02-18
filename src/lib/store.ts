@@ -3,6 +3,7 @@ import path from 'path';
 import { randomUUID } from 'crypto';
 
 const dataDir = path.join(process.cwd(), 'data');
+const USE_CONVEX = process.env.USE_CONVEX === '1';
 
 async function ensureFile(file: string) {
   try {
@@ -16,6 +17,10 @@ async function ensureFile(file: string) {
 export type Upsert<T extends { id?: string }> = T & { id?: string };
 
 export async function upsertItem<T extends { id?: string }>(name: string, item: Upsert<T>): Promise<T & { id: string, updatedAt: string }>{
+  if (USE_CONVEX) {
+    console.warn('[store] USE_CONVEX=1 set — falling back to file store (stub).');
+    // TODO: wire Convex mutations here; keep API stable
+  }
   const file = path.join(dataDir, `${name}.json`);
   await ensureFile(file);
   const now = new Date().toISOString();
@@ -31,6 +36,10 @@ export async function upsertItem<T extends { id?: string }>(name: string, item: 
 }
 
 export async function listItems<T = any>(name: string): Promise<T[]> {
+  if (USE_CONVEX) {
+    console.warn('[store] USE_CONVEX=1 set — falling back to file store (stub).');
+    // TODO: wire Convex queries here; keep API stable
+  }
   const file = path.join(dataDir, `${name}.json`);
   await ensureFile(file);
   const raw = await fs.readFile(file, 'utf8');
