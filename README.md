@@ -24,6 +24,13 @@ This repo ships a local‑first MVP: zero external DB, no polling, and a tiny br
 - OpenClaw running locally (recommended)
 
 ## Quick Start
+Smoke test first:
+
+```bash
+# Once dev is running and token is set
+curl -H "Authorization: Bearer $TOKEN" http://localhost:3000/api/mission/tasks/list | jq
+```
+
 1) Generate a token and write credentials for the bridge (one‑time):
 
 ```bash

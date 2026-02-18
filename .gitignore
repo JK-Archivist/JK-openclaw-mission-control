@@ -4,6 +4,7 @@ node_modules
 out
 .DS_Store
 .env*
+!.env.example
 
 # Local data store
 /data/*.json
