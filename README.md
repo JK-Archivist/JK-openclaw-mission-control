@@ -1,6 +1,6 @@
-# Mission Control for OpenClaw
+# JK Command Center (for OpenClaw)
 
-[![CI](https://github.com/JK-Archivist/JK-openclaw-mission-control/actions/workflows/ci.yml/badge.svg)](https://github.com/JK-Archivist/JK-openclaw-mission-control/actions/workflows/ci.yml)
+[![CI](https://github.com/JK-Archivist/JK-Command-Center/actions/workflows/ci.yml/badge.svg)](https://github.com/JK-Archivist/JK-Command-Center/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A plug‑and‑play Next.js dashboard that lets you see and steer your OpenClaw:
@@ -63,8 +63,8 @@ node skills/mission-control-bridge/bridge.mjs events upsert '{"title":"Daily ing
 node skills/mission-control-bridge/bridge.mjs activity update '{"agentId":"main","status":"working"}'
 ```
 
-## How Mission Control stays in sync
-- Your agent calls the Bridge (a tiny Node script) to POST updates to Mission Control.
+## How JK Command Center stays in sync
+- Your agent calls the Bridge (a tiny Node script) to POST updates to Command Center.
 - The UI uses Server Actions for operator edits (no API token in the browser).
 - No polling. The agent pushes state when it changes.
 

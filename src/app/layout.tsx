@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mission Control",
-  description: "Mission Control for OpenClaw",
+  title: "JK Command Center",
+  description: "JK Command Center for OpenClaw",
 };
 
 export default function RootLayout({
@@ -39,7 +39,7 @@ export default function RootLayout({
         <header className="border-b header-grad" style={{ backgroundColor: 'var(--bg-elev)', borderColor: 'var(--border)'}}>
           <div className="app-container py-3 flex items-center gap-4 justify-between">
             <div className="flex items-center gap-6">
-              <div className="font-semibold">Mission Control</div>
+              <div className="font-semibold">JK Command Center</div>
               <nav className="flex gap-3 text-sm muted">
                 {links.map(l => (
                   <Link key={l.href} href={l.href} className="hover:underline">
