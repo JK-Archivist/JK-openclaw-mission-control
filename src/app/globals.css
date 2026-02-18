@@ -32,7 +32,6 @@
   --accent-secondary: #a855f7; /* purple-500 */
 }
 
-
 /* Prefer system theme on first paint if no saved choice */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) { color-scheme: light; }

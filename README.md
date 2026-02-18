@@ -24,6 +24,13 @@ This repo ships a local‑first MVP: zero external DB, no polling, and a tiny br
 - OpenClaw running locally (recommended)
 
 ## Quick Start
+Smoke test first:
+
+```bash
+# Once dev is running and token is set
+curl -H "Authorization: Bearer $TOKEN" http://localhost:3000/api/mission/tasks/list | jq
+```
+
 1) Generate a token and write credentials for the bridge (one‑time):
 
 ```bash
@@ -150,7 +157,8 @@ node skills/mission-control-bridge/bridge.mjs activity update '{"agentId":"main"
 - CORS is disabled by default (localhost); set `MISSION_CONTROL_CORS_ORIGINS` if needed
 
 ## Migrate to Convex (or any DB)
-- Replace `src/lib/store.ts` with Convex mutations/queries
+- Toggle: set `USE_CONVEX=1` (stubbed now; falls back to file store)
+- Replace internals of `src/lib/store.ts` with Convex mutations/queries
 - Keep endpoint contracts stable → UI and bridge scripts remain unchanged
 - Deploy Next.js on Vercel, Convex in the cloud; move token to Vercel env
 
