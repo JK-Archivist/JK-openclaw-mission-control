@@ -46,6 +46,14 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Brand tints */
+:root { --pink-50: #fdf2f8; --purple-50: #faf5ff; }
+[data-theme="light"] { --pink-50: #fdf2f8; --purple-50: #faf5ff; }
+
+/* Header gradient tokens */
+:root { --header-grad-start: transparent; --header-grad-end: transparent; }
+[data-theme="light"] { --header-grad-start: var(--pink-50); --header-grad-end: var(--purple-50); }
+
 /* Base */
 html, body { height: 100%; }
 body {
@@ -68,3 +76,9 @@ body {
 .badge-info { background: color-mix(in oklab, var(--accent) 18%, var(--bg)); color: var(--accent-contrast); border-color: transparent; }
 .badge-success { background: color-mix(in oklab, var(--success) 22%, var(--bg)); color: #052e13; }
 .badge-danger { background: color-mix(in oklab, var(--danger) 22%, var(--bg)); color: #3a0a0a; }
+/* Agent/Human badges */
+.badge-agent { background: color-mix(in oklab, var(--accent-secondary) 18%, var(--bg)); color: var(--accent-contrast); border-color: transparent; }
+.badge-human { background: color-mix(in oklab, var(--accent) 18%, var(--bg)); color: var(--accent-contrast); border-color: transparent; }
+
+/* Header gradient helper */
+.header-grad { background: linear-gradient(90deg, var(--header-grad-start), var(--header-grad-end)); }

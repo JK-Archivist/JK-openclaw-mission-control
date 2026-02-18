@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <header className="border-b" style={{ background: 'var(--bg-elev)', borderColor: 'var(--border)'}}>
+        <header className="border-b header-grad" style={{ backgroundColor: 'var(--bg-elev)', borderColor: 'var(--border)'}}>
           <div className="app-container py-3 flex items-center gap-4 justify-between">
             <div className="flex items-center gap-6">
               <div className="font-semibold">Mission Control</div>

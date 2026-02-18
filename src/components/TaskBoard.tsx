@@ -63,7 +63,7 @@ export default function TaskBoard({ cols, tasks, moveAction, addAction, orderAct
                 <div key={t.id} draggable data-task-id={t.id} onDragStart={(e)=>onDragStart(e, t.id)} className="rounded border p-2 cursor-move bg-white hover:bg-slate-50">
                   <div className="font-medium flex items-center gap-2">{t.title || t.id}
                     {t.priority && <Badge variant={t.priority==='high'?'danger':t.priority==='medium'?'info':'muted'}>{t.priority}</Badge>}
-                    {t.assignee && <Badge variant={t.assignee.startsWith('agent')?'info':'muted'}>{t.assignee}</Badge>}
+                    {t.assignee && <Badge variant={t.assignee.startsWith('agent')?'agent':'human'}>{t.assignee}</Badge>}
                   </div>
                   {t.updatedAt && <div className="text-[11px] text-slate-500">updated {new Date(t.updatedAt).toLocaleString()}</div>}
                   {orderAction && (
