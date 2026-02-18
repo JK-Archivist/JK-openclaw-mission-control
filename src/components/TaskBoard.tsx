@@ -2,16 +2,17 @@
 import React, { useRef } from 'react';
 import Badge from './Badge';
 
-export type Task = { id: string; title?: string; status?: string; assignee?: string; priority?: 'low'|'medium'|'high'|string; updatedAt?: string };
+export type Task = { id: string; title?: string; status?: string; assignee?: string; priority?: 'low'|'medium'|'high'|string; order?: number; updatedAt?: string };
 
 type Props = {
   cols: string[];
   tasks: Task[];
   moveAction: (formData: FormData)=>void; // server action
   addAction: (formData: FormData)=>void; // server action
+  orderAction?: (formData: FormData)=>void; // server action optional
 };
 
-export default function TaskBoard({ cols, tasks, moveAction, addAction }: Props){
+export default function TaskBoard({ cols, tasks, moveAction, addAction, orderAction }: Props){
   const forms = useRef<Record<string, HTMLFormElement | null>>({});
 
   const onDragStart = (e: React.DragEvent, id: string) => {
@@ -33,6 +34,7 @@ export default function TaskBoard({ cols, tasks, moveAction, addAction }: Props)
 
   const groups: Record<string, Task[]> = Object.fromEntries(cols.map(c=>[c,[]]));
   for (const t of tasks) groups[t.status || cols[0]]?.push(t);
+  for (const c of cols) groups[c].sort((a,b)=> (a.order??0) - (b.order??0));
 
   return (
     <div className="space-y-4">
@@ -64,6 +66,12 @@ export default function TaskBoard({ cols, tasks, moveAction, addAction }: Props)
                     {t.assignee && <Badge variant={t.assignee.startsWith('agent')?'info':'muted'}>{t.assignee}</Badge>}
                   </div>
                   {t.updatedAt && <div className="text-[11px] text-slate-500">updated {new Date(t.updatedAt).toLocaleString()}</div>}
+                  {orderAction && (
+                    <div className="mt-1 flex gap-1 text-xs">
+                      <button type="button" className="rounded border px-2 py-0.5" onClick={()=>{ const fd=new FormData(); fd.set('id', t.id); fd.set('delta','-1'); orderAction(fd); }}>↑</button>
+                      <button type="button" className="rounded border px-2 py-0.5" onClick={()=>{ const fd=new FormData(); fd.set('id', t.id); fd.set('delta','1'); orderAction(fd); }}>↓</button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
