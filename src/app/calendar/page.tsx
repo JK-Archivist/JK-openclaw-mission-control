@@ -15,7 +15,7 @@ function buildMonthGrid(date = new Date()){
   return { year, month, cells };
 }
 
-export default async function CalendarPage() {
+export default async function CalendarPage(props: { searchParams?: Promise<{ m?: string }>}) {
   async function addEvent(formData: FormData) {
     'use server';
     const title = String(formData.get('title') || '').trim();
@@ -26,8 +26,10 @@ export default async function CalendarPage() {
   }
 
   const events = await listItems<any>('events');
-  const now = new Date();
-  const { month, year, cells } = buildMonthGrid(now);
+  const sp = await props.searchParams;
+  const m = sp?.m; // YYYY-MM
+  const base = m && /^\d{4}-\d{2}$/.test(m) ? new Date(m + '-01T00:00:00Z') : new Date();
+  const { month, year, cells } = buildMonthGrid(base);
   const byDay: Record<string, any[]> = {};
   for (const e of events){
     const key = (e.when||'').slice(0,10);
@@ -38,7 +40,11 @@ export default async function CalendarPage() {
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-semibold">Calendar</h1>
-      <div className="text-slate-600">{monthName} {year}</div>
+      <div className="flex items-center gap-3 text-slate-600">
+        <a className="rounded border px-2 py-1 text-sm" href={`/calendar?m=${new Date(year, month-1, 1).toISOString().slice(0,7)}`}>Prev</a>
+        <div>{monthName} {year}</div>
+        <a className="rounded border px-2 py-1 text-sm" href={`/calendar?m=${new Date(year, month+1, 1).toISOString().slice(0,7)}`}>Next</a>
+      </div>
       <div className="grid grid-cols-7 gap-2 text-sm">
         {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d => (
           <div key={d} className="px-2 py-1 text-slate-500">{d}</div>
