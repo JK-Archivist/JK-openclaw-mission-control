@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef } from 'react';
+import Image from 'next/image';
 import Badge from './Badge';
 
 export type ContentItem = { id: string; idea?: string; title?: string; status?: string; thumbnailUrl?: string; script?: string; updatedAt?: string };
@@ -52,7 +53,9 @@ export default function ContentBoard({ stages, items, moveAction, addAction }: P
               {groups[stage].map(c => (
                 <div key={c.id} draggable data-content-id={c.id} onDragStart={(e)=>onDragStart(e, c.id)} className="rounded border p-2 cursor-move bg-white hover:bg-slate-50">
                   <div className="font-medium">{c.idea || c.title || c.id}</div>
-                  {c.thumbnailUrl && <img src={c.thumbnailUrl} alt="thumb" className="mt-1 rounded max-h-24" />}
+                  {c.thumbnailUrl && (
+                    <Image src={c.thumbnailUrl} alt="thumb" width={200} height={120} unoptimized className="mt-1 rounded max-h-24 w-auto h-auto" />
+                  )}
                   {c.updatedAt && <div className="text-[11px] text-slate-500">updated {new Date(c.updatedAt).toLocaleString()}</div>}
                 </div>
               ))}
